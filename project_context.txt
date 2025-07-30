@@ -1,0 +1,57 @@
+Project structure:
+.
+├── LICENSE
+├── README.md
+├── codebase_files.txt
+├── package-lock.json
+├── package.json
+├── project_context.txt
+└── src
+    ├── index.html
+    └── index.js
+
+2 directories, 8 files
+Package.json content:
+{
+  "name": "ipfs-id-qr-codes",
+  "description": "A sample app using window.ipfs to build QR codes of the Private Key and Peer IPNS Address",
+  "version": "1.0.2",
+  "private": true,
+  "author": "Henrique Dias <hacdias@gmail.com>",
+  "main": "dist/index.html",
+  "scripts": {
+    "start": "ecstatic dist",
+    "clean": "shx rm -rf dist",
+    "build": "run-s build:*",
+    "build:copy": "run-p build:copy:*",
+    "build:copy:html": "shx mkdir -p dist && shx cp src/index.html dist/index.html",
+    "build:copy:ipfs-css": "run-p build:copy:ipfs-css:*",
+    "build:copy:ipfs-css:css": "shx mkdir -p dist && shx cp node_modules/ipfs-css/ipfs.css dist",
+    "build:copy:ipfs-css:fonts": "shx mkdir -p dist/fonts && shx cp node_modules/ipfs-css/fonts/* dist/fonts",
+    "build:copy:tachyons": "shx mkdir -p dist && shx cp node_modules/tachyons/css/tachyons.css dist",
+    "build:js": "browserify -g uglifyify src/index.js -o dist/bundle.js",
+    "test": "standard"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ipfs",
+    "qr",
+    "example",
+    "demo"
+  ],
+  "dependencies": {
+    "ipfs-css": "^1.3.0",
+    "ipfs-http-client": "^50.1.1",
+    "ipfs-provider": "^2.0.1",
+    "qrcode-generator": "^1.4.4",
+    "tachyons": "^4.12.0"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "ecstatic": "^4.1.4",
+    "npm-run-all": "^4.1.5",
+    "shx": "^0.3.3",
+    "standard": "^16.0.3",
+    "uglifyify": "^5.0.2"
+  }
+}
